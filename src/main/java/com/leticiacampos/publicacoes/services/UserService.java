@@ -25,7 +25,7 @@ public class UserService {
 		return usersDTO;
 	}
 	
-	public UserDTO findById(String id) {
+	public User findById(String id) {
 		
 		Optional<User> user = userRepository.findById(id);
 		
@@ -34,7 +34,7 @@ public class UserService {
 			throw new ObjectNotFoundException("Objeto não encontrado");
 		}
 		
-		return new UserDTO(user.get());
+		return user.get();
 	}
 	
 	public User insert(User user) {
@@ -48,8 +48,7 @@ public class UserService {
 	
 	public User update(User user, String id) {
 		
-		UserDTO userDTO = findById(id);
-		User userNew = fromDTO(userDTO);
+		User userNew = findById(id);
 		
 		updateData(userNew, user);
 		return userRepository.save(userNew);
